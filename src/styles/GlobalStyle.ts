@@ -20,6 +20,8 @@ const GlobalStyle = createGlobalStyle`
     font-size: 1.6rem;  // This sets the default font size to 16px (1.6 * 10px)
     background: ${(props) => props.theme.colors.background};
     color: ${(props) => props.theme.colors.text};
+    width: 100%;
+    height: 100%;
   }
 
   :lang(ko) {
