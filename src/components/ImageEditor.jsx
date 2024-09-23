@@ -1,15 +1,43 @@
-import React from 'react';
+import { useRef, useEffect } from 'react';
+import ImageProcessor from '@/utils/imageProcessor';
 
 const ImageEditor = ({ image, onEdit }) => {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    if (image && canvasRef.current) {
+      const canvas = canvasRef.current;
+      const context = canvas.getContext('2d');
+      const img = new Image();
+
+      img.src = URL.createObjectURL(image);
+
+      img.onload = () => {
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        context.clearRect(0, 0, canvas.width, canvas.height); // 기존 그림 지우기
+        context.drawImage(img, 0, 0);
+      };
+
+      // 메모리 누수 방지
+      return () => URL.revokeObjectURL(img.src);
+    }
+  }, [image]);
+
   const handleEdit = () => {
-    // 편집 로직 (예: 크기 조정, 자르기 등)
-    onEdit(editedImage);
+    const processor = new ImageProcessor(canvasRef.current);
+    processor.applyGrayscale();
   };
 
   return (
-    <div>
-      {image && <img src={URL.createObjectURL(image)} alt="To edit" />}
-      <button onClick={handleEdit}>Edit Image</button>
+    <div className='edit-canvas-wrapper'>
+      {image ? (
+        <canvas ref={canvasRef} className='edit-canvas' />
+      ) : ""}
+
+      <button type="button" onClick={handleEdit}>GrayScale</button>
+
     </div>
   );
 };

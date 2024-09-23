@@ -9,8 +9,8 @@ const ImageUploader = ({ onFileSelect }) => {
   };
 
   return (
-    <div>
-      <input type="file" accept="image/*" onChange={handleFileChange} />
+    <div className="file-upload-wrapper">
+      <input id="file-upload" type="file" accept="image/*" onChange={handleFileChange} />
     </div>
   );
 };

@@ -19,10 +19,9 @@ export default function ImageEditorPage() {
 
   return (
     <div className="image-editor-page">
-      <h1>이미지 에디터</h1>
       <ImageUploader onFileSelect={handleFileSelect} />
       <ImagePreview image={editedImage || selectedImage} />
-      <ImageEditor image={selectedImage} onEdit={handleImageEdit} />
+      <ImageEditor image={editedImage || selectedImage} onEdit={handleImageEdit} />
     </div>
   );
 }

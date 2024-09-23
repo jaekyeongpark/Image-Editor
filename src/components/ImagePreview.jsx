@@ -25,12 +25,10 @@ const ImagePreview = ({ image }) => {
   }, [image]);
 
   return (
-    <div>
+    <div className='preview-canvas-wrapper'>
       {image ? (
-        <canvas ref={canvasRef} className='image-canvas' />
-      ) : (
-        <p>No image selected</p>
-      )}
+        <canvas ref={canvasRef} className='preview-canvas' />
+      ) : ""}
     </div>
   );
 };
