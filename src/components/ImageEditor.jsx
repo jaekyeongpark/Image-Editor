@@ -25,18 +25,25 @@ const ImageEditor = ({ image, onEdit }) => {
     }
   }, [image]);
 
-  const handleEdit = () => {
+  const grayScale = () => {
     const processor = new ImageProcessor(canvasRef.current);
     processor.applyGrayscale();
   };
+  const blackWhite = () => {
+    const processor = new ImageProcessor(canvasRef.current);
+    processor.applyBlackWhite();
+  };
 
   return (
+
     <div className='edit-canvas-wrapper'>
+      <button type="button" onClick={grayScale}>Gray Scale</button>
+      <button type="button" onClick={blackWhite}>Black White</button>
+
       {image ? (
         <canvas ref={canvasRef} className='edit-canvas' />
       ) : ""}
 
-      <button type="button" onClick={handleEdit}>GrayScale</button>
 
     </div>
   );
