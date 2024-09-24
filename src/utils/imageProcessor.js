@@ -32,4 +32,17 @@ export default class ImageProcessor {
 
     this.context.putImageData(imageData, 0, 0);
   }
+
+  applyReverse() {
+    const imageData = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
+    const data = imageData.data;
+
+    for (let i = 0; i < data.length; i += 4) {
+      data[i] = 255 - data[i];        // Red
+      data[i + 1] = 255 - data[i + 1];    // Green
+      data[i + 2] = 255 - data[i + 2];    // Blue
+    }
+
+    this.context.putImageData(imageData, 0, 0);
+  }
 }
