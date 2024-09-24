@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import ImageProcessor from '@/utils/imageProcessor';
 
-const ImageEditor = ({ image, onEdit }) => {
+const ImageEditor = ({ image }) => {
   const canvasRef = useRef(null);
   const processorRef = useRef(null); // Use useRef to store the processor instance
   const [originalImage, setOriginalImage] = useState(null);
@@ -57,9 +57,25 @@ const ImageEditor = ({ image, onEdit }) => {
     }
   };
 
+  const seva = () => {
+    const canvas = canvasRef.current;
+
+    if (canvas) {
+      canvas.toBlob((blob) => {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'save.png';
+        link.click()
+
+        URL.revokeObjectURL(link.href);
+      }, 'image/png');
+    }
+  }
+
   return (
     <>
       <div className='edit-canvas-buttons'>
+        <button type="button" onClick={seva}>Save</button>
         <button type="button" onClick={reset}>Reset</button>
         <button type="button" onClick={grayScale}>Gray Scale</button>
         <button type="button" onClick={blackWhite}>Black White</button>
