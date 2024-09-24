@@ -3,6 +3,7 @@ import ImageProcessor from '@/utils/imageProcessor';
 
 const ImageEditor = ({ image, onEdit }) => {
   const canvasRef = useRef(null);
+  let processor = null;
 
   useEffect(() => {
     if (image && canvasRef.current) {
@@ -20,25 +21,29 @@ const ImageEditor = ({ image, onEdit }) => {
         context.drawImage(img, 0, 0);
       };
 
-      // 메모리 누수 방지
+      processor = new ImageProcessor(canvasRef.current);
+
       return () => URL.revokeObjectURL(img.src);
     }
   }, [image]);
 
+
   const grayScale = () => {
-    const processor = new ImageProcessor(canvasRef.current);
     processor.applyGrayscale();
   };
   const blackWhite = () => {
-    const processor = new ImageProcessor(canvasRef.current);
     processor.applyBlackWhite();
   };
+  const reverse = () => {
+    processor.applyReverse();
+  }
 
   return (
 
     <div className='edit-canvas-wrapper'>
       <button type="button" onClick={grayScale}>Gray Scale</button>
       <button type="button" onClick={blackWhite}>Black White</button>
+      <button type="button" onClick={reverse}>Reverse</button>
 
       {image ? (
         <canvas ref={canvasRef} className='edit-canvas' />
