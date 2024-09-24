@@ -27,10 +27,10 @@
    ```
 2. 필요한 패키지 설치
    ```bash
-   npm install
+   pnpm install
    ```
 4. 실행
    ```bash
-   npm run dev
+   pnpm start
    ```
    실행 후 'http://localhost:8080/' 에서 확인할 수 있습니다.
